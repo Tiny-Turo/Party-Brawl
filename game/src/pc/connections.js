@@ -1,20 +1,26 @@
 import { io } from "socket.io-client";
 const socket = io("ws://localhost:8080/");
 
-export let playersInRoom = 0;
+export let players = {};
 
-socket.on("input", ({ input }) => {
-  console.log(input);
+socket.on("input", ({ id, input }) => {
+  players[id].input = input;
 });
 
-socket.on("playerjoined", ({ id }) => {
-  console.log(id);
-  playersInRoom++;
+socket.on("playerjoined", ({ id, name }) => {
+  players[id] = {
+    name,
+    isReady: false,
+    input: { x: 0, y: 0 },
+  };
+});
+
+socket.on("playerready", ({ id, name }) => {
+  players[id].isReady = true;
 });
 
 socket.on("playerleft", ({ id }) => {
-  console.log(id);
-  playersInRoom--;
+  delete players[id];
 });
 
 export function createRoom(roomCode) {

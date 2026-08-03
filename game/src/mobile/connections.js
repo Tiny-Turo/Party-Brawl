@@ -22,7 +22,4 @@ socket.on("sessionend", () => {
 
   const dialog = document.getElementById("room-unavailable-dialog");
   dialog.showModal();
-
-  const form = document.getElementById("name-form");
-  if (form) form.remove();
 });

@@ -1,5 +1,5 @@
 import QRCode from "qrcode";
-import { createRoom, playersInRoom } from "../connections";
+import { createRoom, players } from "../connections";
 
 const qrCanvas = document.getElementById("qr-canvas");
 const roomCode = "hello";
@@ -26,32 +26,50 @@ function drawBackground() {
 export function update() {
   drawBackground();
 
+  ctx.fillStyle = "#DC9E82";
+  ctx.fillRect(-canvas.width / 2, -canvas.height / 2, canvas.width / 2, canvas.height);
+
   const qrCanvasPadding = 32;
+  const qrPosition = { x: -canvas.width / 4, y: 0 };
   ctx.fillStyle = "#F2F3D9";
+
   ctx.beginPath();
   ctx.roundRect(
-    -qrCanvas.width / 2 - qrCanvasPadding,
-    -qrCanvas.height / 2 - qrCanvasPadding,
+    qrPosition.x - qrCanvas.width / 2 - qrCanvasPadding,
+    qrPosition.y - qrCanvas.height / 2 - qrCanvasPadding,
     qrCanvas.width + qrCanvasPadding * 2,
     qrCanvas.height + qrCanvasPadding * 2,
     qrCanvasPadding,
   );
   ctx.fill();
 
-  ctx.drawImage(qrCanvas, -qrCanvas.width / 2, -qrCanvas.height / 2);
+  ctx.drawImage(qrCanvas, qrPosition.x - qrCanvas.width / 2, qrPosition.y - qrCanvas.height / 2);
 
   ctx.fillStyle = "#030027";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
+  ctx.font = "120px boldone";
+  ctx.fillText("Scan to", qrPosition.x, -qrCanvas.height / 2 - qrCanvasPadding * 8);
+
   ctx.font = "160px boldone";
-  ctx.fillText("scan to join", 0, -qrCanvas.height / 2 - qrCanvasPadding * 7);
+  ctx.fillText("join!", qrPosition.x, -qrCanvas.height / 2 - qrCanvasPadding * 4);
 
   ctx.font = "80px boldone";
-  ctx.fillText("users joined:", 0, qrCanvas.height / 2 + qrCanvasPadding * 4);
+  ctx.fillText("Ready up", qrPosition.x, qrCanvas.height / 2 + qrCanvasPadding * 4);
+  ctx.fillText("when everyone", qrPosition.x, qrCanvas.height / 2 + qrCanvasPadding * 6.5);
+  ctx.fillText("has joined", qrPosition.x, qrCanvas.height / 2 + qrCanvasPadding * 9);
 
-  ctx.font = "160px boldone";
-  ctx.fillText(playersInRoom, 0, qrCanvas.height / 2 + qrCanvasPadding * 8);
+  ctx.font = "120px boldone";
+  ctx.fillText("Joined:", canvas.width / 4, -qrCanvas.height / 2 - qrCanvasPadding * 8);
+
+  for (const [i, player] of Object.values(players).entries()) {
+    if (player.isReady) ctx.fillStyle = "#030027";
+    else ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+
+    ctx.font = "80px boldone";
+    ctx.fillText(player.name, canvas.width / 4, -qrCanvas.height / 2 - qrCanvasPadding * 3 + i * qrCanvasPadding * 3);
+  }
 }
 
 export function load() {

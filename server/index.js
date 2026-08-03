@@ -6,8 +6,18 @@ io.on("connection", (socket) => {
   // console.log("A user connected");
 
   socket.on("input", ({ input }) => {
-    console.log(input);
-    roomsPCSocket[socket.data.roomCode].emit("input", { input });
+    if (roomsPCSocket[socket.data.roomCode])
+      roomsPCSocket[socket.data.roomCode].emit("input", {
+        id: socket.id,
+        input,
+      });
+  });
+
+  socket.on("readyup", function () {
+    if (roomsPCSocket[socket.data.roomCode])
+      roomsPCSocket[socket.data.roomCode].emit("playerready", {
+        id: socket.id,
+      });
   });
 
   socket.on("joinroom", ({ roomCode, name }) => {
@@ -21,7 +31,7 @@ io.on("connection", (socket) => {
     socket.join(roomCode);
     socket.data.roomCode = roomCode;
 
-    roomsPCSocket[roomCode].emit("playerjoined", { id: socket.id });
+    roomsPCSocket[roomCode].emit("playerjoined", { id: socket.id, name });
   });
 
   socket.on("createroom", ({ roomCode }) => {
