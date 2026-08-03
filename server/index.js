@@ -45,7 +45,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", function () {
     if (
       roomsPCSocket[socket.data.roomCode] &&
-      socket.id == roomsPCSocket[socket.data.roomCode].id
+      socket.id === roomsPCSocket[socket.data.roomCode].id
     ) {
       io.emit("sessionend");
     } else {

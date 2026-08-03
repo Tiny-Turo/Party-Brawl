@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-const socket = io("ws://localhost:8080/");
+const socket = io("ws://192.168.178.194:8080/");
 
 export let players = {};
 
@@ -13,6 +13,7 @@ socket.on("playerjoined", ({ id, name }) => {
     isReady: false,
     input: { x: 0, y: 0 },
     position: { x: 0, y: 0 },
+    itemHeldType: -1,
   };
 });
 
