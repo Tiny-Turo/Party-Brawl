@@ -9,7 +9,7 @@ form.addEventListener("submit", (e) => {
 
   const formData = new FormData(e.target);
   const name = formData.get("name");
-  if (name.length <= 3) {
+  if (name.length < 3) {
     shakeInput();
     return;
   }
