@@ -10,7 +10,7 @@ form.addEventListener("submit", (e) => {
   const formData = new FormData(e.target);
   const name = formData.get("name");
   if (name.length <= 3) {
-    sfx.buzz.play();
+    shakeInput();
     return;
   }
 
@@ -29,10 +29,11 @@ const input = document.getElementById("name-input");
 input.addEventListener("input", (e) => {
   const previousValue = input.value;
   input.value = input.value.replace(/[^a-zA-Z0-9]/g, "");
+  input.value = input.value.slice(0, 9);
   if (input.value === previousValue) {
     sfx.hover.play();
   } else {
-    sfx.buzz.play();
+    shakeInput();
   }
 });
 
@@ -73,6 +74,13 @@ function startJoysticks() {
     input = { x: 0, y: 0 };
     updateInput(input);
   });
+}
+
+function shakeInput() {
+  input.classList.add("shake");
+  setTimeout(() => {
+    input.classList.remove("shake");
+  }, 500);
 }
 
 console.log("mobile");
