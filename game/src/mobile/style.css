@@ -19,6 +19,27 @@ form {
   align-items: center;
 }
 
+#room-unavailable-dialog:open {
+  font-family: "boldone";
+  color: #030027;
+  font-size: 2rem;
+
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+
+  background-color: none;
+  background: none;
+  outline: none;
+  border: none;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #input-name {
   font-family: "boldone";
   font-size: 2rem;

@@ -1,7 +1,8 @@
 import QRCode from "qrcode";
+import { createRoom } from "../connections";
 
 const qrCanvas = document.getElementById("qr-canvas");
-const roomID = "sideshowbob";
+const roomCode = "hello";
 
 export function update() {
   ctx.fillStyle = "#DC9E82";
@@ -36,7 +37,7 @@ export function update() {
 }
 
 export function load() {
-  const link = `http://192.168.178.194:5173/mobile/?id=${roomID}`;
+  const link = `http://192.168.178.194:5173/mobile/?roomcode=${roomCode}`;
   console.log(link);
   QRCode.toCanvas(
     qrCanvas,
@@ -57,6 +58,8 @@ export function load() {
       console.log("success!");
     },
   );
+
+  createRoom(roomCode);
 }
 
 export function unload() {}
