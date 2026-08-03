@@ -1,12 +1,30 @@
 import QRCode from "qrcode";
-import { createRoom } from "../connections";
+import { createRoom, playersInRoom } from "../connections";
 
 const qrCanvas = document.getElementById("qr-canvas");
 const roomCode = "hello";
 
+function drawBackground() {
+  const spacing = 20;
+  const totalLines = canvas.width;
+  const totalHeight = spacing * totalLines;
+  const offset = (time.time * 20) % (spacing * 2);
+  ctx.save();
+  ctx.translate(canvas.width / 2, 0);
+  ctx.rotate(Math.PI * 0.25);
+  ctx.fillStyle = "#C16E70";
+  for (let i = 0; i < totalLines; i++) {
+    if (i % 2 === 0) {
+      const y = i * spacing + offset - totalHeight / 2;
+
+      ctx.fillRect(-(canvas.height + canvas.width), y, (canvas.width + canvas.height) * 2, spacing);
+    }
+  }
+  ctx.restore();
+}
+
 export function update() {
-  ctx.fillStyle = "#DC9E82";
-  ctx.fillRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+  drawBackground();
 
   const qrCanvasPadding = 32;
   ctx.fillStyle = "#F2F3D9";
@@ -33,7 +51,7 @@ export function update() {
   ctx.fillText("users joined:", 0, qrCanvas.height / 2 + qrCanvasPadding * 4);
 
   ctx.font = "160px boldone";
-  ctx.fillText("20", 0, qrCanvas.height / 2 + qrCanvasPadding * 8);
+  ctx.fillText(playersInRoom, 0, qrCanvas.height / 2 + qrCanvasPadding * 8);
 }
 
 export function load() {

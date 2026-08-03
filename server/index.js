@@ -39,7 +39,10 @@ io.on("connection", (socket) => {
     ) {
       io.emit("sessionend");
     } else {
-      io.emit("playerleft", { id: socket.id });
+      if (roomsPCSocket[socket.data.roomCode])
+        roomsPCSocket[socket.data.roomCode].emit("playerleft", {
+          id: socket.id,
+        });
     }
   });
 });

@@ -1,7 +1,4 @@
-export function update() {
-  ctx.fillStyle = "#DC9E82";
-  ctx.fillRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
-}
+export function update() {}
 
 export function load() {}
 

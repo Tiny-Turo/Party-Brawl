@@ -9,7 +9,6 @@ const scenes = {
   game: Game,
 };
 
-ctx.translate(canvas.width / 2, canvas.height / 2);
 window.changeScene = function (sceneName) {
   scenes[currentScene]?.unload();
   currentScene = sceneName;
@@ -34,6 +33,9 @@ function update(currentTime) {
   time.time = currentTime / 1000;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#DC9E82";
+  ctx.fillRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+
   scenes[currentScene]?.update();
 
   if (time.deltaTime < 1 / time.maxFPS) {
