@@ -1,20 +1,52 @@
 import nipplejs from "nipplejs";
-import { joinRoom, updateInput } from "./connections.js";
+import "./sfx.js";
+import { joinRoom, readyUp, updateInput } from "./connections.js";
 
 const form = document.getElementById("name-form");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  startJoysticks();
 
   const formData = new FormData(e.target);
   const name = formData.get("name");
+  if (name.length <= 3) {
+    sfx.buzz.play();
+    return;
+  }
 
   const params = new URLSearchParams(window.location.search);
   const roomCode = params.get("roomcode");
 
   joinRoom(roomCode, name);
   form.remove();
+
+  const dialog = document.getElementById("press-to-readyup-dialog");
+  dialog.showModal();
+});
+
+const input = document.getElementById("name-input");
+
+input.addEventListener("input", (e) => {
+  const previousValue = input.value;
+  input.value = input.value.replace(/[^a-zA-Z0-9]/g, "");
+  if (input.value === previousValue) {
+    sfx.hover.play();
+  } else {
+    sfx.buzz.play();
+  }
+});
+
+const button = document.getElementById("readyup-button");
+
+button.addEventListener("click", (e) => {
+  sfx.click.play();
+  startJoysticks();
+  e.preventDefault();
+
+  const dialog = document.getElementById("press-to-readyup-dialog");
+  dialog.close();
+
+  readyUp();
 });
 
 function startJoysticks() {

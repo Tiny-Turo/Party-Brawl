@@ -13,9 +13,16 @@ export function joinRoom(roomCode, name) {
   socket.emit("joinroom", { roomCode, name });
 }
 
+export function readyUp() {
+  socket.emit("readyup");
+}
+
 socket.on("sessionend", () => {
   roomUnavailable = true;
 
   const dialog = document.getElementById("room-unavailable-dialog");
   dialog.showModal();
+
+  const form = document.getElementById("name-form");
+  if (form) form.remove();
 });
