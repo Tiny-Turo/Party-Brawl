@@ -1,0 +1,36 @@
+html,
+body {
+  background-color: black;
+
+  padding: 0;
+  margin: 0;
+
+  overflow: hidden;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#main-canvas {
+  image-rendering: crisp-edges;
+  width: 100%;
+}
+
+#qr-canvas {
+  display: none;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@font-face {
+  font-family: "saeada";
+  src: url("/font/LTSaeada-Medium.otf") format("woff2");
+  src: url("/font/LTSaeada-Medium.otf") format("woff");
+}

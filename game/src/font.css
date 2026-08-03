@@ -1,0 +1,5 @@
+@font-face {
+  font-family: "boldone";
+  src: url("/font/Boldone.otf") format("woff2");
+  src: url("/font/Boldone.otf") format("woff");
+}

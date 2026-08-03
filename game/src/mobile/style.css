@@ -1,0 +1,54 @@
+html,
+body {
+  background-color: #dc9e82;
+
+  padding: 0;
+  margin: 0;
+
+  overflow: hidden;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+#input-name {
+  font-family: "boldone";
+  font-size: 2rem;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 0;
+
+  max-width: 70vw;
+
+  color: #030027;
+  background-color: #f2f3d9;
+}
+
+#input-name:focus {
+  outline: none;
+}
+
+#input-name::placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+@supports (corner-shape: squircle) {
+  #input-name {
+    border-radius: 40px;
+    corner-shape: squircle;
+  }
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
