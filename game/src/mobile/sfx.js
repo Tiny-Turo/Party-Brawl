@@ -10,9 +10,4 @@ window.sfx = {
     src: ["/sfx/hover.mp3"],
     volume: 1,
   }),
-
-  buzz: new Howl({
-    src: ["/sfx/buzz.wav"],
-    volume: 1,
-  }),
 };

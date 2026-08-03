@@ -13,6 +13,8 @@ export function update(players) {
       if (distanceSquared(player.position, item.position) < 16384) {
         player.itemHeldType = item.type;
         indexesToDestroy.add(i);
+
+        sfx.pickup.play();
       }
     }
   }
@@ -35,7 +37,7 @@ itemSprites.src = "/sprites/items.png";
 function drawItem(position, type) {
   const CELL_SIZE = 128;
 
-  const offsetY = Math.sin(time.time * 2) * 4 - 12;
+  const offsetY = Math.sin(time.time * 2) * 6 - 16;
 
   pushToRenderQueue(
     itemSprites,

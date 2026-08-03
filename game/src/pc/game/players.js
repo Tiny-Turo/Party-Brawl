@@ -21,9 +21,17 @@ function drawPlayer(player) {
   const FPS = 24;
   const framesAmount = 16;
   let cellX = (Math.floor(time.time / (1 / FPS)) % framesAmount) + 1;
+
   // const cellY = Math.floor(time.time / ((1 / FPS) * 32)) % 5;
 
   if (direction === 0) cellX = 0;
+
+  if ((cellX == 2 || cellX == 10) && player.lastCellX != cellX) {
+    player.lastCellX = cellX;
+    sfx.footstep.play();
+    sfx.footstep.rate(random(0.9, 1.1));
+  }
+
   pushToRenderQueue(
     playerSprite,
     cellX * CELL_SIZE,
