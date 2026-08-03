@@ -5,11 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game</title>
   </head>
-  <body>
+  <body id="main-body">
     <link rel="stylesheet" href="/src/mobile/style.css" />
     <link rel="stylesheet" href="/src/font.css" />
 
     <script type="module" src="/src/mobile/index.js"></script>
+    <script type="module">
+      let fullscreenAttempted = false;
+
+      document.addEventListener(
+        "touchstart",
+        () => {
+          const body = document.getElementById("main-body");
+          if (!body) return;
+
+          if (document.fullscreenElement) return;
+          if (fullscreenAttempted) return;
+
+          fullscreenAttempted = true;
+
+          const p = body.requestFullscreen?.();
+          if (p && typeof p.catch === "function") p.catch(() => {});
+        },
+        { passive: true },
+      );
+    </script>
+
     <form id="name-form">
       <input name="name" id="name-input" type="text" placeholder="Name" />
     </form>
