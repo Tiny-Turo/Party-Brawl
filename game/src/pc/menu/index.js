@@ -63,12 +63,20 @@ export function update() {
   ctx.font = "120px boldone";
   ctx.fillText("Joined:", canvas.width / 4, -qrCanvas.height / 2 - qrCanvasPadding * 8);
 
+  let isEveryoneReady = true;
   for (const [i, player] of Object.values(players).entries()) {
     if (player.isReady) ctx.fillStyle = "#030027";
-    else ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+    else {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+      isEveryoneReady = false;
+    }
 
     ctx.font = "80px boldone";
     ctx.fillText(player.name, canvas.width / 4, -qrCanvas.height / 2 - qrCanvasPadding * 3 + i * qrCanvasPadding * 3);
+  }
+
+  if (isEveryoneReady && Object.keys(players).length > 0) {
+    changeScene("game");
   }
 }
 
