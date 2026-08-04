@@ -7,7 +7,7 @@ const bubbleSprite = new Image();
 bubbleSprite.src = "/sprites/bubble.png";
 
 export function pushedInHole(itemType) {
-  if (itemType === currentRequest[requestCompleted]) {
+  if (itemType === currentRequest[requestCompleted].type) {
     requestCompleted++;
   } else {
     requestCompleted = 0;
