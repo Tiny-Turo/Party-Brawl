@@ -1,8 +1,8 @@
-import QRCode from "qrcode";
-import { closeRoom, createRoom, players } from "../connections";
+let pressedAt = 0;
 
-const qrCanvas = document.getElementById("qr-canvas");
-const roomCode = "hello";
+export function mouseDown() {
+  pressedAt = time.time;
+}
 
 function drawBackground() {
   const spacing = 20;
@@ -26,89 +26,26 @@ function drawBackground() {
 export function update() {
   drawBackground();
 
-  ctx.fillStyle = "#DC9E82";
-  ctx.fillRect(-canvas.width / 2, -canvas.height / 2, canvas.width / 2, canvas.height);
-
-  const qrCanvasPadding = 32;
-  const qrPosition = { x: -canvas.width / 4, y: 0 };
-  ctx.fillStyle = "#F2F3D9";
-
-  ctx.beginPath();
-  ctx.roundRect(
-    qrPosition.x - qrCanvas.width / 2 - qrCanvasPadding,
-    qrPosition.y - qrCanvas.height / 2 - qrCanvasPadding,
-    qrCanvas.width + qrCanvasPadding * 2,
-    qrCanvas.height + qrCanvasPadding * 2,
-    qrCanvasPadding,
-  );
-  ctx.fill();
-
-  ctx.drawImage(qrCanvas, qrPosition.x - qrCanvas.width / 2, qrPosition.y - qrCanvas.height / 2);
-
   ctx.fillStyle = "#030027";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
   ctx.font = "120px boldone";
-  ctx.fillText("Scan to", qrPosition.x, -qrCanvas.height / 2 - qrCanvasPadding * 8);
+  let y = 0;
+  if (pressedAt !== 0) y = ((time.time - pressedAt) / 0.3) * (canvas.height / 2);
 
-  ctx.font = "160px boldone";
-  ctx.fillText("join!", qrPosition.x, -qrCanvas.height / 2 - qrCanvasPadding * 4);
+  ctx.fillText("Press to start!", 0, y);
 
-  ctx.font = "80px boldone";
-  ctx.fillText("Ready up", qrPosition.x, qrCanvas.height / 2 + qrCanvasPadding * 4);
-  ctx.fillText("when everyone", qrPosition.x, qrCanvas.height / 2 + qrCanvasPadding * 6.5);
-  ctx.fillText("has joined", qrPosition.x, qrCanvas.height / 2 + qrCanvasPadding * 9);
+  if (pressedAt !== 0) {
+    let opacity = (time.time - pressedAt - 0.5) / 0.5;
 
-  ctx.font = "120px boldone";
-  ctx.fillText("Joined:", canvas.width / 4, -qrCanvas.height / 2 - qrCanvasPadding * 8);
+    ctx.fillStyle = `rgba(3, 0, 39,${opacity})`;
+    if (opacity >= 1) changeScene("lobby");
 
-  let isEveryoneReady = true;
-  for (const [i, player] of Object.values(players).entries()) {
-    if (player.isReady) ctx.fillStyle = "#030027";
-    else {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
-      isEveryoneReady = false;
-    }
-
-    ctx.font = "80px boldone";
-    ctx.fillText(player.name, canvas.width / 4, -qrCanvas.height / 2 - qrCanvasPadding * 3 + i * qrCanvasPadding * 3);
-  }
-
-  if (isEveryoneReady && Object.keys(players).length > 0) {
-    changeScene("game");
-    closeRoom();
+    ctx.fillRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
   }
 }
 
-export function load() {
-  const link = `http://192.168.178.194:5173/mobile/?roomcode=${roomCode}`;
-  console.log(link);
-  QRCode.toCanvas(
-    qrCanvas,
-    link,
-    {
-      help: true,
-      errorCorrectionLevel: "L",
-      width: 280,
-      color: {
-        light: "#F2F3D9",
-        dark: "#030027",
-      },
+export function load() {}
 
-      margin: 0,
-    },
-    function (error) {
-      if (error) alert(error);
-      console.log("success!");
-    },
-  );
-
-  createRoom(roomCode);
-
-  music.lobby.play();
-}
-
-export function unload() {
-  music.lobby.stop();
-}
+export function unload() {}

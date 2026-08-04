@@ -3,9 +3,12 @@ import "./connections.js";
 
 import * as Game from "./game/index.js";
 import * as Menu from "./menu/index.js";
+import * as Lobby from "./lobby/index.js";
 
 const scenes = {
   menu: Menu,
+  lobby: Lobby,
+
   game: Game,
 };
 
@@ -24,6 +27,10 @@ window.time = {
   timeSpeed: 1,
   maxFPS: 2000,
 };
+
+addEventListener("mousedown", (e) => {
+  scenes[currentScene]?.mouseDown?.(e);
+});
 
 function update(currentTime) {
   // Calculate delta time
