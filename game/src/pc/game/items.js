@@ -1,5 +1,5 @@
 export let items = [];
-const itemTypesAmount = 5;
+export const itemTypesAmount = 5;
 
 export function update(players) {
   let indexesToDestroy = new Set();
@@ -24,7 +24,7 @@ export function update(players) {
 export function load() {
   for (let i = 0; i < 3; i++) {
     items.push({
-      position: { x: random(-canvas.width / 2, canvas.width / 2), y: random(-canvas.height / 2, canvas.height / 2) },
+      position: randomPositionInSpawn(),
       type: randomInt(0, itemTypesAmount),
     });
   }

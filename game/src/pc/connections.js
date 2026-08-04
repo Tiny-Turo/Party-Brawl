@@ -12,7 +12,7 @@ socket.on("playerjoined", ({ id, name }) => {
     name,
     isReady: false,
     input: { x: 0, y: 0 },
-    position: { x: 200, y: 0 },
+    position: randomPositionInSpawn(),
     itemHeldType: -1,
   };
 });

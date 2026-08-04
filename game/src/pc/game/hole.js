@@ -1,3 +1,5 @@
+import { pushedInHole } from "./request";
+
 export const holePosition = { x: 0, y: 0 };
 
 export function update(players) {
@@ -5,6 +7,7 @@ export function update(players) {
     if (player.itemHeldType === -1) continue;
 
     if (isEllipsesColliding(player.position, holePosition, 192)) {
+      pushedInHole(player.itemHeldType);
       player.itemHeldType = -1;
       sfx.pickup.play();
     }

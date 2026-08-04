@@ -32,6 +32,13 @@ function resize() {
     // canvas.height = canvas.width / containerAspect;
     // ctx.translate(canvas.width / 2, canvas.height / 2);
   }
+
+  window.spawnAreas = [
+    { x: -canvas.width / 2 + 128, y: 128, width: canvas.width - 256, height: canvas.height / 2 - 256 },
+    { x: -canvas.width / 2 + 128, y: -canvas.height / 2 + 304, width: canvas.width - 256, height: canvas.height / 2 - 432 },
+    { x: -canvas.width / 2 + 128, y: -128, width: canvas.width / 2 - 320, height: 256 },
+    { x: 192, y: -128, width: canvas.width / 2 - 320, height: 256 },
+  ];
 }
 
 resize();

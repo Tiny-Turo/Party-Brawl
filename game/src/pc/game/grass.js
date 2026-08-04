@@ -18,15 +18,14 @@ export function draw() {
       patch.position.y - CELL_SIZE,
       CELL_SIZE,
       CELL_SIZE,
-      patch.position.y,
     );
   }
 }
 
 export function load() {
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 5; i++) {
     grass.push({
-      position: { x: random(-canvas.width / 2, canvas.width / 2), y: random(-canvas.height / 2, canvas.height / 2) },
+      position: randomPositionInSpawn(),
       type: randomInt(0, grassTypesAmount),
     });
   }
