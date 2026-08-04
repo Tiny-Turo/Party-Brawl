@@ -1,5 +1,6 @@
 export let items = [];
 export const itemTypesAmount = 5;
+export const itemsAtOnce = 5;
 
 export function update(players) {
   let indexesToDestroy = new Set();
@@ -22,12 +23,16 @@ export function update(players) {
 }
 
 export function load() {
-  for (let i = 0; i < 3; i++) {
-    items.push({
-      position: randomPositionInSpawn(),
-      type: randomInt(0, itemTypesAmount),
-    });
+  for (let i = 0; i < itemsAtOnce; i++) {
+    newItem();
   }
+}
+
+export function newItem() {
+  items.push({
+    position: randomPositionInSpawn(),
+    type: randomInt(0, itemTypesAmount),
+  });
 }
 
 export const itemSprites = new Image();

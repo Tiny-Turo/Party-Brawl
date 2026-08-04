@@ -1,3 +1,4 @@
+import { removeTimer, resetTimer } from "./hole";
 import { itemSprites, itemTypesAmount } from "./items";
 
 let currentRequest = [];
@@ -8,10 +9,21 @@ bubbleSprite.src = "/sprites/bubble.png";
 
 export function pushedInHole(itemType) {
   if (itemType === currentRequest[requestCompleted].type) {
+    resetTimer();
+
     requestCompleted++;
+    if (requestCompleted >= currentRequest.length) {
+      score += currentRequest.length;
+
+      load(randomInt(2, 5));
+    }
   } else {
+    removeTimer();
     requestCompleted = 0;
   }
+}
+export function resetRequest() {
+  requestCompleted = 0;
 }
 
 export function draw() {
@@ -68,8 +80,11 @@ export function draw() {
   );
 }
 
-export function load() {
-  for (let i = 0; i < 3; i++) {
+export function load(requestLength) {
+  requestCompleted = 0;
+  currentRequest = [];
+
+  for (let i = 0; i < requestLength; i++) {
     currentRequest.push({
       type: randomInt(0, itemTypesAmount),
     });

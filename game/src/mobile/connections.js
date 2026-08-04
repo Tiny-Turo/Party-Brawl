@@ -23,3 +23,10 @@ socket.on("sessionend", () => {
   const dialog = document.getElementById("room-unavailable-dialog");
   dialog.showModal();
 });
+
+socket.on("connect_error", (err) => {
+  roomUnavailable = true;
+
+  const dialog = document.getElementById("room-unavailable-dialog");
+  dialog.showModal();
+});

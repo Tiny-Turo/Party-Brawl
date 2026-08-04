@@ -17,7 +17,6 @@ window.changeScene = function (sceneName) {
 
 let currentScene;
 changeScene("menu");
-
 let lastTime;
 window.time = {
   deltaTime: 0,

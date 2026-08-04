@@ -28,6 +28,6 @@ window.sfx = {
 
   woosh: new Howl({
     src: ["/sfx/woosh.mp3"],
-    volume: 1,
+    volume: 0.5,
   }),
 };

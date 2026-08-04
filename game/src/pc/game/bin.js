@@ -1,15 +1,19 @@
-let binPosition = { x: canvas.width / 2, y: 0 };
+import * as Items from "./items";
+
+let binPosition = { x: canvas.width / 2 - 128, y: -canvas.height / 2 + 256 + 32 };
 let binOpenedAt = 0;
 let binClosedAt = 0;
 
 export function update(players) {
-  binPosition = { x: canvas.width / 2 - 128, y: -canvas.height / 2 + 256 + 32 };
-
   let binIsOpen = false;
 
   for (const player of Object.values(players)) {
-    if (player.itemHeldType !== -1 && isEllipsesColliding(player.position, binPosition, 128)) {
+    if (player.itemHeldType !== -1 && isEllipsesColliding(player.position, binPosition, 192)) {
       player.itemHeldType = -1;
+
+      if (Items.items.length < Items.itemsAtOnce) {
+        Items.newItem();
+      }
 
       sfx.binThrow.play();
     }

@@ -2,8 +2,8 @@ import { itemSprites } from "./items";
 
 export function update(players, holePosition) {
   for (const [i, player] of Object.values(players).entries()) {
-    player.position.x += player.input.x * time.deltaTime * 12 * 24;
-    player.position.y -= player.input.y * time.deltaTime * 12 * 24;
+    player.position.x += player.input.x * time.deltaTime * 16 * 24;
+    player.position.y -= player.input.y * time.deltaTime * 16 * 24;
 
     collideWithHole(player, holePosition);
 
@@ -13,6 +13,7 @@ export function update(players, holePosition) {
 
 const playerSprite = new Image();
 playerSprite.src = "/sprites/player.png";
+const playerTypeOffset = randomInt(0, 5);
 
 function drawPlayer(player, index) {
   const position = player.position;
@@ -23,7 +24,7 @@ function drawPlayer(player, index) {
   const FPS = 24;
   const framesAmount = 16;
   let cellX = Math.floor(time.time / (1 / FPS)) % framesAmount;
-  let cellY = index * 2;
+  let cellY = ((index + playerTypeOffset) % 5) * 2;
 
   if (direction === 0) cellY++;
 
