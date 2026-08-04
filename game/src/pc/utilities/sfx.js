@@ -18,6 +18,16 @@ window.sfx = {
 
   footstep: new Howl({
     src: ["/sfx/footstep.mp3"],
-    volume: 0.1,
+    volume: 0.05,
+  }),
+
+  binThrow: new Howl({
+    src: ["/sfx/bin-throw.mp3"],
+    volume: 1,
+  }),
+
+  woosh: new Howl({
+    src: ["/sfx/woosh.mp3"],
+    volume: 1,
   }),
 };
