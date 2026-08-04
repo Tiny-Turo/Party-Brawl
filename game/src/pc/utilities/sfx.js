@@ -31,3 +31,17 @@ window.sfx = {
     volume: 0.5,
   }),
 };
+
+window.music = {
+  lobby: new Howl({
+    src: ["/music/lobby.mp3"],
+    volume: 0.5,
+    loop: true,
+  }),
+
+  game: new Howl({
+    src: ["/music/game.mp3"],
+    volume: 0.5,
+    loop: true,
+  }),
+};

@@ -105,6 +105,10 @@ export function load() {
   );
 
   createRoom(roomCode);
+
+  music.lobby.play();
 }
 
-export function unload() {}
+export function unload() {
+  music.lobby.stop();
+}

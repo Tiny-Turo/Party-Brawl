@@ -51,6 +51,10 @@ export function load() {
   Request.load(3);
 
   Grass.load();
+
+  music.game.play();
 }
 
-export function unload() {}
+export function unload() {
+  music.game.stop();
+}
