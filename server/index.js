@@ -28,6 +28,12 @@ io.on("connection", (socket) => {
       return;
     }
 
+    if (roomsPCSocket[roomCode].data.roomClosed) {
+      console.log(`but session was ended as room was closed`);
+      socket.emit("sessionend");
+      return;
+    }
+
     socket.join(roomCode);
     socket.data.roomCode = roomCode;
 
@@ -40,6 +46,13 @@ io.on("connection", (socket) => {
     socket.join(roomCode);
     socket.data.roomCode = roomCode;
     roomsPCSocket[roomCode] = socket;
+  });
+
+  socket.on("closeroom", function () {
+    console.log(`Room closed at: "${socket.data.roomCode}"`);
+
+    socket.data.roomClosed = true;
+    roomsPCSocket[socket.data.roomCode] = socket;
   });
 
   socket.on("disconnect", function () {

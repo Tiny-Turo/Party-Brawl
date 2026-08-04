@@ -1,5 +1,5 @@
 import QRCode from "qrcode";
-import { createRoom, players } from "../connections";
+import { closeRoom, createRoom, players } from "../connections";
 
 const qrCanvas = document.getElementById("qr-canvas");
 const roomCode = "hello";
@@ -77,6 +77,7 @@ export function update() {
 
   if (isEveryoneReady && Object.keys(players).length > 0) {
     changeScene("game");
+    closeRoom();
   }
 }
 

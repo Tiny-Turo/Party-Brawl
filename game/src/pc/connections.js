@@ -16,6 +16,10 @@ socket.on("playerjoined", ({ id, name }) => {
     position: randomPositionInSpawn(),
     itemHeldType: -1,
   };
+
+  if (Object.keys(players).length >= 5) {
+    closeRoom();
+  }
 });
 
 socket.on("playerready", ({ id, name }) => {
@@ -29,4 +33,8 @@ socket.on("playerleft", ({ id }) => {
 
 export function createRoom(roomCode) {
   socket.emit("createroom", { roomCode });
+}
+
+export function closeRoom() {
+  socket.emit("closeroom");
 }
