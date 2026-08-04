@@ -4,19 +4,18 @@ const itemTypesAmount = 5;
 export function update(players) {
   let indexesToDestroy = new Set();
   for (const [i, item] of items.entries()) {
-    drawItem(item.position, item.type);
-
     for (const player of Object.values(players)) {
       if (player.itemHeldType !== -1) continue;
 
-      //128*128 =16384
-      if (distanceSquared(player.position, item.position) < 16384) {
+      if (isEllipsesColliding(player.position, item.position, 128)) {
         player.itemHeldType = item.type;
         indexesToDestroy.add(i);
 
         sfx.pickup.play();
       }
     }
+
+    drawItem(item.position, item.type);
   }
 
   items = items.filter((_, i) => !indexesToDestroy.has(i));

@@ -54,7 +54,7 @@ function startJoysticks() {
   const options = {
     size: 100,
     fadeTime: 100,
-    color: { back: "#151E3F", front: "#030027" },
+    color: { back: "#19254D", front: "#030027" },
     follow: true,
     // multitouch: true,
     // maxNumberOfJoysticks: 2,
