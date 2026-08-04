@@ -18,6 +18,7 @@ export function update(players) {
   timer -= time.deltaTime;
 
   if (timer <= 0) {
+    score = 0;
     resetRequest();
   }
 
@@ -40,7 +41,7 @@ export function update(players) {
 }
 
 export function load() {
-  totalTime = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height) / 130;
+  totalTime = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height) / 100;
 }
 
 export const holeSprite = new Image();
@@ -56,19 +57,22 @@ function drawHole() {
   const timerWidth = 192;
   const timerHeight = 48;
 
-  if (timer >= 0) {
+  if (timer > 0) {
+    //NORMAL
     pushToRenderQueue(timerSprite, 0, 0, timerWidth, timerHeight, -timerWidth / 2, holePosition.y - CELL_SIZE, timerWidth, timerHeight, holePosition.y);
-    pushToRenderQueue(
-      timerSprite,
-      0,
-      timerHeight,
-      timerWidth * (timer / totalTime),
-      timerHeight,
-      -timerWidth / 2,
-      holePosition.y - CELL_SIZE,
-      timerWidth * (timer / totalTime),
-      timerHeight,
-      holePosition.y,
-    );
+
+    if (timer >= totalTime / 4 || Math.sin(timer * 20) > 0)
+      pushToRenderQueue(
+        timerSprite,
+        0,
+        timerHeight,
+        timerWidth * (timer / totalTime),
+        timerHeight,
+        -timerWidth / 2,
+        holePosition.y - CELL_SIZE,
+        timerWidth * (timer / totalTime),
+        timerHeight,
+        holePosition.y,
+      );
   }
 }

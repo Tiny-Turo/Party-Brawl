@@ -8,6 +8,7 @@ socket.on("input", ({ id, input }) => {
 });
 
 socket.on("playerjoined", ({ id, name }) => {
+  sfx.hover.play();
   players[id] = {
     name,
     isReady: false,
@@ -18,6 +19,7 @@ socket.on("playerjoined", ({ id, name }) => {
 });
 
 socket.on("playerready", ({ id, name }) => {
+  sfx.pickup.play();
   players[id].isReady = true;
 });
 

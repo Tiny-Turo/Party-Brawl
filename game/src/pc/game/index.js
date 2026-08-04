@@ -28,6 +28,7 @@ export function update() {
 
   if (score > hiScore) {
     localStorage.setItem("Best", score);
+    hiScore = score;
   }
 
   ctx.fillStyle = "#030027";

@@ -52,18 +52,19 @@ export function draw() {
 
     const CELL_SIZE = 128;
 
-    pushToRenderQueue(
-      itemSprites,
-      item.type * CELL_SIZE,
-      requestCompleted > i ? CELL_SIZE * 2 : CELL_SIZE,
-      CELL_SIZE,
-      CELL_SIZE,
-      bubblePosition.x + BUBBLE_WIDTH * (i + 0.5),
-      bubblePosition.y + BUBBLE_WIDTH / 2,
-      CELL_SIZE,
-      CELL_SIZE,
-      2000000000,
-    );
+    if (item.type !== -1)
+      pushToRenderQueue(
+        itemSprites,
+        item.type * CELL_SIZE,
+        requestCompleted > i ? CELL_SIZE * 2 : CELL_SIZE,
+        CELL_SIZE,
+        CELL_SIZE,
+        bubblePosition.x + BUBBLE_WIDTH * (i + 0.5),
+        bubblePosition.y + BUBBLE_WIDTH / 2,
+        CELL_SIZE,
+        CELL_SIZE,
+        2000000000,
+      );
   }
 
   pushToRenderQueue(
@@ -86,7 +87,15 @@ export function load(requestLength) {
 
   for (let i = 0; i < requestLength; i++) {
     currentRequest.push({
-      type: randomInt(0, itemTypesAmount),
+      type: -1,
     });
+
+    setTimeout(
+      () => {
+        currentRequest[i].type = randomInt(0, itemTypesAmount);
+        sfx.hover.play();
+      },
+      (i + 1) * 200,
+    );
   }
 }
