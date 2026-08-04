@@ -1,3 +1,6 @@
+import { players } from "../connections";
+import { currentRequest, requestCompleted } from "./request";
+
 export let items = [];
 export const itemTypesAmount = 5;
 export const itemsAtOnce = 5;
@@ -24,15 +27,26 @@ export function update(players) {
 
 export function load() {
   for (let i = 0; i < itemsAtOnce; i++) {
-    newItem();
+    items.push({
+      position: randomPositionInSpawn(),
+      type: randomInt(0, itemTypesAmount),
+    });
   }
 }
 
 export function newItem() {
-  items.push({
-    position: randomPositionInSpawn(),
-    type: randomInt(0, itemTypesAmount),
-  });
+  const assistChance = Math.pow(0.5, Object.keys(players).length);
+  if (Math.random() < assistChance && currentRequest[requestCompleted].type !== -1) {
+    items.push({
+      position: randomPositionInSpawn(),
+      type: currentRequest[requestCompleted].type,
+    });
+  } else {
+    items.push({
+      position: randomPositionInSpawn(),
+      type: randomInt(0, itemTypesAmount),
+    });
+  }
 }
 
 export const itemSprites = new Image();

@@ -1,8 +1,8 @@
 import { removeTimer, resetTimer } from "./hole";
 import { itemSprites, itemTypesAmount } from "./items";
 
-let currentRequest = [];
-let requestCompleted = 0;
+export let currentRequest = [];
+export let requestCompleted = 0;
 
 const bubbleSprite = new Image();
 bubbleSprite.src = "/sprites/bubble.png";

@@ -1,3 +1,4 @@
+import { players } from "../connections";
 import * as Items from "./items";
 import { pushedInHole, resetRequest } from "./request";
 
@@ -41,7 +42,7 @@ export function update(players) {
 }
 
 export function load() {
-  totalTime = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height) / 100;
+  totalTime = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height) / 100 - Object.keys(players).length * 2;
 }
 
 export const holeSprite = new Image();
