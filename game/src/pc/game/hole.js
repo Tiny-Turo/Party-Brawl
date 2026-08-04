@@ -6,7 +6,7 @@ export function update(players) {
   for (const player of Object.values(players)) {
     if (player.itemHeldType === -1) continue;
 
-    if (isEllipsesColliding(player.position, holePosition, 148)) {
+    if (isEllipsesColliding(player.position, holePosition, 180)) {
       pushedInHole(player.itemHeldType);
       player.itemHeldType = -1;
       sfx.pickup.play();
