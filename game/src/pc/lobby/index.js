@@ -93,7 +93,7 @@ export function update() {
 
 export function load() {
   enteredAt = time.time;
-  const link = `http://192.168.178.194:5173/mobile/?roomcode=${roomCode}`;
+  const link = `http://192.168.1.101:5173/mobile/?roomcode=${roomCode}`;
   console.log(link);
   QRCode.toCanvas(
     qrCanvas,

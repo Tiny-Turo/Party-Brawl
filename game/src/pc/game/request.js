@@ -9,9 +9,9 @@ bubbleSprite.src = "/sprites/bubble.png";
 
 export function pushedInHole(itemType) {
   if (itemType === currentRequest[requestCompleted].type) {
-    resetTimer();
-
+    resetTimer(true);
     requestCompleted++;
+
     if (requestCompleted >= currentRequest.length) {
       score += currentRequest.length;
 
@@ -81,7 +81,7 @@ export function draw() {
   );
 }
 
-export function load(requestLength) {
+export function load(requestLength, isFirstLoad = false) {
   requestCompleted = 0;
   currentRequest = [];
 
@@ -98,4 +98,7 @@ export function load(requestLength) {
       (i + 1) * 200,
     );
   }
+
+  if (isFirstLoad) return;
+  resetTimer();
 }

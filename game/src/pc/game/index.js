@@ -48,7 +48,7 @@ export function update() {
 export function load() {
   Hole.load();
   Items.load();
-  Request.load(3);
+  Request.load(3, true);
 
   Grass.load();
 

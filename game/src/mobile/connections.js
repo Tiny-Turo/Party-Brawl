@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-const socket = io("ws://192.168.178.194:8080/");
+const socket = io("ws://192.168.1.101:8080/");
 
 export let roomUnavailable = false;
 

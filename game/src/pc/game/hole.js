@@ -1,13 +1,14 @@
 import { players } from "../connections";
 import * as Items from "./items";
-import { pushedInHole, resetRequest } from "./request";
+import { currentRequest, pushedInHole, resetRequest } from "./request";
 
 export const holePosition = { x: 0, y: 0 };
 export let timer = 0;
 let totalTime = 15;
 
-export function resetTimer() {
-  timer = totalTime;
+export function resetTimer(onlyResetIfZero = false) {
+  if (onlyResetIfZero && timer > 0) return;
+  timer = totalTime * currentRequest.length;
 }
 
 export function removeTimer() {
@@ -42,7 +43,7 @@ export function update(players) {
 }
 
 export function load() {
-  totalTime = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height) / 100 - Object.keys(players).length * 2;
+  totalTime = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height) / 150 - Object.keys(players).length * 2;
 }
 
 export const holeSprite = new Image();
@@ -67,11 +68,11 @@ function drawHole() {
         timerSprite,
         0,
         timerHeight,
-        timerWidth * (timer / totalTime),
+        timerWidth * (timer / (totalTime * currentRequest.length)),
         timerHeight,
         -timerWidth / 2,
         holePosition.y - CELL_SIZE,
-        timerWidth * (timer / totalTime),
+        timerWidth * (timer / (totalTime * currentRequest.length)),
         timerHeight,
         holePosition.y,
       );
