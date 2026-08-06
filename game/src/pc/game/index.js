@@ -11,6 +11,7 @@ import * as Grass from "./grass";
 
 window.score = 0;
 window.hiScore = localStorage.getItem("Best") || 0;
+let enteredAt = 0;
 
 export function update() {
   Players.update(players, Hole.holePosition);
@@ -43,9 +44,26 @@ export function update() {
   ctx.fillText(`HI: ${hiScore}`, canvas.width / 2 - 32, canvas.height / 2 - 32);
 
   drawAll();
+
+  if (enteredAt === 0) return;
+  const hypotenuse = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height);
+  const radius = (time.time - enteredAt) * hypotenuse;
+  if (radius > hypotenuse) return;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+
+  ctx.moveTo(radius, 0);
+  ctx.arc(0, 0, radius, 0, Math.PI * 2);
+
+  ctx.fillStyle = "#030027";
+  ctx.fill("evenodd");
+  ctx.restore();
 }
 
 export function load() {
+  enteredAt = time.time;
   Hole.load();
   Items.load();
   Request.load(3, true);

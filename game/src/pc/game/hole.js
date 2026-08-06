@@ -43,7 +43,7 @@ export function update(players) {
 }
 
 export function load() {
-  totalTime = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height) / 150 - Object.keys(players).length * 2;
+  totalTime = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height) / 150;
 }
 
 export const holeSprite = new Image();

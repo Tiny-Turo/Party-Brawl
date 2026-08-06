@@ -35,7 +35,7 @@ export function load() {
 }
 
 export function newItem() {
-  const assistChance = 0.5 - Object.keys(players).length * 0.1;
+  const assistChance = 0.5 - (Object.keys(players).length - 1) * 0.1;
   if (Math.random() < assistChance && currentRequest[requestCompleted].type !== -1) {
     items.push({
       position: randomPositionInSpawn(),
